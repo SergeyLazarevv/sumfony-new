@@ -23,7 +23,7 @@ class Comment
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $text;
 
@@ -38,11 +38,6 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $no;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Conference::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -53,6 +48,12 @@ class Comment
      */
     private $photoFilename;
 
+    /////////////////////////////////////////
+    public function __toString(): string
+    {
+        return (string) $this->getEmail();
+    }
+    /////////////////////////////////////////
     public function getId(): ?int
     {
         return $this->id;
@@ -102,18 +103,6 @@ class Comment
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getNo(): ?string
-    {
-        return $this->no;
-    }
-
-    public function setNo(string $no): self
-    {
-        $this->no = $no;
 
         return $this;
     }
